@@ -21,6 +21,7 @@
 
     <modules>
         <module>distributed-1</module>
+        <module>distributed-zk-lock</module>
     </modules>
 
     <build>
