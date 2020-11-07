@@ -35,7 +35,7 @@
                 <sharding:table-rule logic-table="t_order" actual-data-nodes="ds$->{0..1}.t_order_$->{1..2}"
                                      database-strategy-ref="databaseStrategy" table-strategy-ref="tableStrategy"/>
                 <sharding:table-rule logic-table="t_order_item" actual-data-nodes="ds$->{0..1}.t_order_item_$->{1..2}"
-                                     database-strategy-ref="databaseStrategy" table-strategy-ref="tableStrategy"/>
+                                     database-strategy-ref="databaseStrategy" table-strategy-ref="tableOrderItemStrategy"/>
             </sharding:table-rules>
             <sharding:binding-table-rules>
                 <sharding:binding-table-rule logic-tables="t_order,t_order_item"/>
@@ -48,10 +48,10 @@
 
     <sharding:inline-strategy id="databaseStrategy" sharding-column="user_id"
                               algorithm-expression="ds$->{user_id % 2}"/>
-    <sharding:inline-strategy id="tableStrategy" sharding-column="id"
-                              algorithm-expression="t_order_$->{id % 2 +1}"/>
-    <sharding:inline-strategy id="tableOrderItemStrategy" sharding-column="id"
-                              algorithm-expression="t_order_item_$->{id % 2 +1}"/>
+    <sharding:inline-strategy id="tableStrategy" sharding-column="order_id"
+                              algorithm-expression="t_order_$->{order_id % 2 +1}"/>
+    <sharding:inline-strategy id="tableOrderItemStrategy" sharding-column="order_id"
+                              algorithm-expression="t_order_item_$->{order_id % 2 +1}"/>
     <bean class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="sharding-data-source"/>
         <property name="mapperLocations" value="classpath*:/mybatis/*.xml"/>
