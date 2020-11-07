@@ -30,18 +30,16 @@ public class ShardingJdbcDemoApplicationTests {
     @Test
     public void test() {
         Order order = new Order();
-        order.setOrderId(3);
-        order.setUserId(3);
-        order.setOrderAmount((long) 2);
-        order.setOrderAmount((long) 2);
+        order.setUserId(131);
+        order.setOrderAmount(10);
         order.setOrderStatus(2);
-        orderMapper.insert(order);
+        orderMapper.insertSelective(order);
     }
 
     @Test
     public void testSelect() {
         OrderExample orderExample = new OrderExample();
-        orderExample.createCriteria().andOrderIdEqualTo(3).andUserIdEqualTo(3);
+        orderExample.createCriteria().andOrderIdEqualTo("3").andUserIdEqualTo(3);
         List<Order> orders = orderMapper.selectByExample(orderExample);
         System.out.println(orders.size());
         System.out.println(orders.toString());
@@ -77,7 +75,7 @@ public class ShardingJdbcDemoApplicationTests {
     public void testMasterSlave() {
         for (int i = 0; i < 10; i++) {
             OrderExample orderExample = new OrderExample();
-            orderExample.createCriteria().andOrderIdEqualTo(2);
+            orderExample.createCriteria().andOrderIdEqualTo("2");
             List<Order> orders = orderMapper.selectByExample(orderExample);
             System.out.println("order_id=" + orders.get(0).getOrderId());
             System.out.println("order_amount=" + orders.get(0).getOrderAmount());
