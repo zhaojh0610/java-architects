@@ -268,4 +268,5 @@
       user_id = #{userId,jdbcType=INTEGER}
     where order_id = #{orderId,jdbcType=INTEGER}
   </update>
+
 </mapper>

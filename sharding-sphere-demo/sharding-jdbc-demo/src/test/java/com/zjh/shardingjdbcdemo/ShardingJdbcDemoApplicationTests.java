@@ -72,4 +72,15 @@ public class ShardingJdbcDemoApplicationTests {
         orderItem.setUserId(2);
         orderItemMapper.insert(orderItem);
     }
+
+    @Test
+    public void testMasterSlave() {
+        for (int i = 0; i < 10; i++) {
+            OrderExample orderExample = new OrderExample();
+            orderExample.createCriteria().andOrderIdEqualTo(2);
+            List<Order> orders = orderMapper.selectByExample(orderExample);
+            System.out.println("order_id=" + orders.get(0).getOrderId());
+            System.out.println("order_amount=" + orders.get(0).getOrderAmount());
+        }
+    }
 }
