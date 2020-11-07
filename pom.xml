@@ -20,6 +20,7 @@
 
     <modules>
         <module>distributed-lock</module>
+        <module>sharding-sphere-demo</module>
     </modules>
 
     <build>
