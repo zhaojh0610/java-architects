@@ -50,6 +50,8 @@
                               algorithm-expression="ds$->{user_id % 2}"/>
     <sharding:inline-strategy id="tableStrategy" sharding-column="id"
                               algorithm-expression="t_order_$->{id % 2 +1}"/>
+    <sharding:inline-strategy id="tableOrderItemStrategy" sharding-column="id"
+                              algorithm-expression="t_order_item_$->{id % 2 +1}"/>
     <bean class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="sharding-data-source"/>
         <property name="mapperLocations" value="classpath*:/mybatis/*.xml"/>
