@@ -34,6 +34,8 @@
             <sharding:table-rules>
                 <sharding:table-rule logic-table="t_order" actual-data-nodes="ds$->{0..1}.t_order_$->{1..2}"
                                      database-strategy-ref="databaseStrategy" table-strategy-ref="tableStrategy"/>
+                <sharding:table-rule logic-table="t_order_item" actual-data-nodes="ds$->{0..1}.t_order_item_$->{1..2}"
+                                     database-strategy-ref="databaseStrategy" table-strategy-ref="tableStrategy"/>
             </sharding:table-rules>
             <sharding:binding-table-rules>
                 <sharding:binding-table-rule logic-tables="t_order,t_order_item"/>
