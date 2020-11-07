@@ -1,11 +1,9 @@
 package com.zjh.shardingjdbcdemo;
 
 import com.zjh.shardingjdbcdemo.dao.AreaMapper;
+import com.zjh.shardingjdbcdemo.dao.OrderItemMapper;
 import com.zjh.shardingjdbcdemo.dao.OrderMapper;
-import com.zjh.shardingjdbcdemo.model.Area;
-import com.zjh.shardingjdbcdemo.model.AreaExample;
-import com.zjh.shardingjdbcdemo.model.Order;
-import com.zjh.shardingjdbcdemo.model.OrderExample;
+import com.zjh.shardingjdbcdemo.model.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,6 +20,8 @@ public class ShardingJdbcDemoApplicationTests {
     private OrderMapper orderMapper;
     @Resource
     private AreaMapper areaMapper;
+    @Resource
+    private OrderItemMapper orderItemMapper;
 
     @Test
     public void contextLoads() {
@@ -30,7 +30,7 @@ public class ShardingJdbcDemoApplicationTests {
     @Test
     public void test() {
         Order order = new Order();
-        order.setId(3);
+        order.setOrderId(3);
         order.setUserId(3);
         order.setOrderAmount((long) 2);
         order.setOrderAmount((long) 2);
@@ -41,7 +41,7 @@ public class ShardingJdbcDemoApplicationTests {
     @Test
     public void testSelect() {
         OrderExample orderExample = new OrderExample();
-        orderExample.createCriteria().andIdEqualTo(3).andUserIdEqualTo(3);
+        orderExample.createCriteria().andOrderIdEqualTo(3).andUserIdEqualTo(3);
         List<Order> orders = orderMapper.selectByExample(orderExample);
         System.out.println(orders.size());
         System.out.println(orders.toString());
@@ -61,5 +61,15 @@ public class ShardingJdbcDemoApplicationTests {
         areaExample.createCriteria().andIdEqualTo(2);
         List<Area> areas = areaMapper.selectByExample(areaExample);
         System.out.println("areas.size=" + areas.size());
+    }
+
+    @Test
+    public void testBindTable() {
+        OrderItem orderItem = new OrderItem();
+        orderItem.setId(1);
+        orderItem.setOrderId(2);
+        orderItem.setName("test");
+        orderItem.setUserId(2);
+        orderItemMapper.insert(orderItem);
     }
 }
