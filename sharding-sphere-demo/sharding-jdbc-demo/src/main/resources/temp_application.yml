@@ -1,0 +1,32 @@
+#---
+#spring:
+#  shardingsphere:
+#    sharding:
+#      binding-tables: "t_order"
+#      tables:
+#        t_order:
+#          table-strategy:
+#            inline:
+#              algorithm-expression: "t_order_$->{id % 2 + 1}"
+#              sharding-column: "id"
+#          actual-data-nodes: "ds$->{0..1}.t_order_$->{1..2}"
+#      default-database-strategy:
+#        inline:
+#          algorithm-expression: "ds$->{user_id % 2}"
+#          sharding-column: "user_id"
+#    datasource:
+#      ds1:
+#        password: "123456"
+#        type: "com.zaxxer.hikari.HikariDataSource"
+#        username: "root"
+#        jdbcUrl: "jdbc:mysql://192.168.120.130:3306/shard_order?serverTimezone=Asia/Shanghai"
+#        driver-class-name: "com.mysql.cj.jdbc.Driver"
+#      names: "ds0,ds1"
+#      ds0:
+#        password: "123456"
+#        jdbcUrl: "jdbc:mysql://192.168.120.129:3306/sharding_order?serverTimezone=Asia/Shanghai"
+#        driver-class-name: "com.mysql.jdbc.Driver"
+#        username: "root"
+#        type: "com.zaxxer.hikari.HikariDataSource"
+#mybatis:
+#  mapper-locations: classpath:/mybatis/*.xml
