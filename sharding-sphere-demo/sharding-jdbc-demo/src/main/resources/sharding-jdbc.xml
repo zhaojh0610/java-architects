@@ -53,7 +53,7 @@
             <sharding:table-rules>
                 <sharding:table-rule logic-table="t_order" actual-data-nodes="ms$->{0..1}.t_order_$->{1..2}"
                                      database-strategy-ref="databaseStrategy" table-strategy-ref="standardStrategy"
-                                     key-generator-ref="uuid"/>
+                                     key-generator-ref="SNOWFLAKE"/>
                 <sharding:table-rule logic-table="t_order_item" actual-data-nodes="ms$->{0..1}.t_order_item_$->{1..2}"
                                      database-strategy-ref="databaseStrategy" table-strategy-ref="tableOrderItemStrategy"/>
             </sharding:table-rules>
@@ -66,8 +66,14 @@
             </sharding:broadcast-table-rules>
         </sharding:sharding-rule>
     </sharding:data-source>
+    <bean:properties id="snow">
+        <!--worker.id默认不超过2^10(1024)-->
+        <prop key="worker.id">678</prop>
+        <prop key="max.tolerate.time.difference.milliseconds">10</prop>
+    </bean:properties>
 
-    <sharding:key-generator id="uuid" column="order_id" type="UUID"/>
+    <sharding:key-generator id="SNOWFLAKE" column="order_id" type="SNOWFLAKE" props-ref="snow"/>
+
     <sharding:inline-strategy id="databaseStrategy" sharding-column="user_id"
                               algorithm-expression="ms$->{user_id % 2}"/>
     <bean id="myShard" class="com.zjh.shardingjdbcdemo.sharding.MySharding"/>

@@ -49,17 +49,17 @@
             <scope>test</scope>
         </dependency>
         <!--sharding spring命名空间配置依赖-->
-        <dependency>
+        <!--<dependency>
         <groupId>org.apache.shardingsphere</groupId>
         <artifactId>sharding-jdbc-spring-namespace</artifactId>
         <version>4.0.0-RC2</version>
-        </dependency>
+        </dependency>-->
         <!--sharding springboot配置依赖-->
-        <!--<dependency>
+        <dependency>
             <groupId>org.apache.shardingsphere</groupId>
             <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
             <version>4.0.0-RC2</version>
-        </dependency>-->
+        </dependency>
     </dependencies>
 
     <build>

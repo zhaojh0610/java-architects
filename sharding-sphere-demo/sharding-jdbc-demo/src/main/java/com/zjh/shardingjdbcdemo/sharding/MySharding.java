@@ -8,17 +8,17 @@ import java.util.Collection;
 /**
  * @author zhaojh
  */
-public class MySharding implements PreciseShardingAlgorithm<String> {
+public class MySharding implements PreciseShardingAlgorithm<Long> {
     @Override
-    public String doSharding(Collection<String> availableTargetNames, PreciseShardingValue<String> shardingValue) {
-        String id = shardingValue.getValue();
+    public String doSharding(Collection<String> availableTargetNames, PreciseShardingValue<Long> shardingValue) {
+        Long id = shardingValue.getValue();
 
-        int mode = id.hashCode() % availableTargetNames.size();
+        long mode = id % availableTargetNames.size();
         String[] strings = availableTargetNames.toArray(new String[0]);
         mode = Math.abs(mode);
 
         System.out.println(strings[0] + "---------" + strings[1]);
         System.out.println("mode=" + mode);
-        return strings[mode];
+        return strings[(int) mode];
     }
 }
