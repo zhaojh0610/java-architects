@@ -22,6 +22,7 @@
     <modules>
         <module>sharding-jdbc-demo</module>
         <module>xa-demo</module>
+        <module>tcc-demo</module>
     </modules>
     <build>
         <plugins>
