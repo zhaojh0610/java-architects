@@ -19,4 +19,16 @@ public class PaymentController {
     public int payment(int userId, int orderId, int amount) {
         return paymentService.payment(userId, orderId, amount);
     }
+
+    /**
+     * 基于mq实现分布式事务
+     * @param userId
+     * @param orderId
+     * @param amount
+     * @return
+     */
+    @RequestMapping("paymentMQ")
+    public int paymentMQ(int userId, int orderId, int amount) throws Exception {
+        return paymentService.paymentMQ(userId, orderId, amount);
+    }
 }

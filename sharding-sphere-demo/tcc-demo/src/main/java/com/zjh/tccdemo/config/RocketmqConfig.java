@@ -18,14 +18,14 @@ public class RocketmqConfig {
     @Bean(initMethod = "start", destroyMethod = "shutdown")
     public DefaultMQProducer producer() {
         DefaultMQProducer producer = new DefaultMQProducer("paymentGroup");
-        producer.setNamesrvAddr("localhost:9876");
+        producer.setNamesrvAddr("127.0.0.1:9876");
         return producer;
     }
 
     @Bean(initMethod = "start", destroyMethod = "shutdown")
     public DefaultMQPushConsumer pushConsumer(@Qualifier("messageListener") MessageListenerConcurrently messageListener) throws MQClientException {
-        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("paymentGroup");
-        consumer.setNamesrvAddr("localhost:9876");
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("paymentConsumerGroup");
+        consumer.setNamesrvAddr("127.0.0.1:9876");
         consumer.subscribe("payment", "*");
         consumer.registerMessageListener(messageListener);
         return consumer;

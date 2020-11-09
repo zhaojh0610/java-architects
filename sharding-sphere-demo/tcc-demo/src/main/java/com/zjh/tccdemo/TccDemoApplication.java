@@ -2,13 +2,12 @@ package com.zjh.tccdemo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @author zhaojh
  */
 @SpringBootApplication
-@EnableScheduling
+//@EnableScheduling
 public class TccDemoApplication {
 
     public static void main(String[] args) {
