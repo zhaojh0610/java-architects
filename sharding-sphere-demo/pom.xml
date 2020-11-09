@@ -21,6 +21,7 @@
 
     <modules>
         <module>sharding-jdbc-demo</module>
+        <module>xa-demo</module>
     </modules>
     <build>
         <plugins>
