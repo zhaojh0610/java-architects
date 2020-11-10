@@ -29,7 +29,7 @@
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
-        <table schema="xa_129" tableName="payment_msg" domainObjectName="PaymentMsg" ></table>
+        <table schema="xa_129" tableName="t_user" domainObjectName="User" ></table>
 
     </context>
 </generatorConfiguration>
