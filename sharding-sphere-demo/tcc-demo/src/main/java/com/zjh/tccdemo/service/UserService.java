@@ -33,4 +33,12 @@ public class UserService {
         log.info("总共有" + userList.size() + "个用户");
         return userList;
     }
+
+    public User userDetail(Integer userId) {
+        return userMapper.selectByPrimaryKey(userId);
+    }
+
+    public Integer updateUser(User user) {
+        return userMapper.updateUser(user);
+    }
 }

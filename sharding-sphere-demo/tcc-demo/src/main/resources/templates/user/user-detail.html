@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>user-detail</title>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+</head>
+<body>
+<form action="/user/updateUser" method="post" style="margin: 0 auto 0 300px">
+    <input type="hidden" name="id" th:attr="value=${user.id}">
+    <input type="hidden" name="version" th:attr="value=${user.version}">
+    用户名：<input type="text" name="username" th:attr="value=${user.username}"><br>
+    性别：<select name="sex">
+            <option value="0" th:attr="selected=${user.sex}">未填</option>
+            <option value="1" th:attr="selected=${user.sex}">男</option>
+            <option value="2" th:attr="selected=${user.sex}">女</option>
+         </select><br>
+    年龄：<input type="number" name="age" th:attr="value=${user.age}"><br>
+    提交次数：<input type="text" name="updateCount" th:attr="value=${user.updateCount}"><br>
+    <input type="submit" value="提交">
+</form>
+</body>
+
+</html>

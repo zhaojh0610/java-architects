@@ -2,6 +2,7 @@ package com.zjh.tccdemo.controller;
 
 import com.zjh.tccdemo.db129.model.User;
 import com.zjh.tccdemo.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,6 +20,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("user")
+@Slf4j
 public class UserController {
     @Autowired
     private UserService userService;
@@ -37,6 +39,21 @@ public class UserController {
         Map<String,Integer> map = new HashMap<>();
         map.put("status", row);
         return map;
+    }
+
+    @RequestMapping("/detail")
+    public String userDetail(Integer userId, ModelMap map) {
+        User user = userService.userDetail(userId);
+        map.addAttribute("user", user);
+        return "user/user-detail";
+    }
+
+    @RequestMapping("/updateUser")
+    public String updateUser(User user) throws InterruptedException {
+        log.info("更新用户");
+        Integer integer = userService.updateUser(user);
+        Thread.sleep(5000);
+        return "redirect:/user/userList";
     }
 
 }
