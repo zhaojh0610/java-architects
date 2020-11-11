@@ -3,10 +3,16 @@ package com.zjh.tccdemo.service;
 import com.zjh.tccdemo.db129.dao.UserMapper;
 import com.zjh.tccdemo.db129.model.User;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.recipes.locks.InterProcessMutex;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author zhaojh
@@ -15,8 +21,13 @@ import java.util.List;
 @Service
 @Slf4j
 public class UserService {
+
+    @Autowired
+    private CuratorFramework zkClient;
     @Resource
     private UserMapper userMapper;
+    @Autowired
+    private RedissonClient redissonClient;
 
     public int del(int userId) {
         User users = userMapper.selectByPrimaryKey(userId);
@@ -41,4 +52,27 @@ public class UserService {
     public Integer updateUser(User user) {
         return userMapper.updateUser(user);
     }
+
+    public Integer registerLockByZK(User user) throws Exception {
+        InterProcessMutex lock = new InterProcessMutex(zkClient, "/" + user.getUsername());
+        boolean isLock = lock.acquire(40, TimeUnit.SECONDS);
+        if (isLock) {
+            log.info(user.getUsername() + "获得了锁");
+            return userMapper.insertSelective(user);
+        }
+        return 0;
+    }
+
+    public Integer registerLockByRedisson(User user, String token) throws InterruptedException {
+        RLock lock = redissonClient.getLock(token);
+        boolean isLock = lock.tryLock(1, TimeUnit.SECONDS);
+        if (isLock) {
+            log.info(user.getUsername() + "获得了锁");
+            int i = userMapper.insertSelective(user);
+            return i;
+        }
+        return 0;
+    }
+
+
 }
